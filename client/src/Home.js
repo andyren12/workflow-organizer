@@ -1,11 +1,13 @@
-import { GoogleLogin } from './GoogleLogin'
+import { GoogleLogin } from './GoogleLogin';
+import './Home.css';
+
 export default function Home() {
     const { session, supabase, isLoading } = GoogleLogin();
 
     if(isLoading) {
         return <></>
       }
-      
+
     async function googleSignIn() {
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
@@ -34,7 +36,7 @@ export default function Home() {
         </> 
         : 
         <>
-        <button onClick={() => googleSignIn()}>Sign in with Google</button>
+        <button className="google-login-btn" onClick={() => googleSignIn()}>Sign in with Google</button>
         </> }
     </div>
     </div>
