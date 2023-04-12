@@ -1,8 +1,11 @@
 import { GoogleLogin } from './GoogleLogin';
-import './Home.css';
+import styles from './Home.module.scss';
 
 export default function Home() {
     const { session, supabase, isLoading } = GoogleLogin();
+    if (session) {
+        var name = session.user.user_metadata.name;
+    }
 
     if(isLoading) {
         return <></>
@@ -27,18 +30,21 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Home</h1>
-      <div>
-      {session ? 
-        <>
-        <h2>Hi {session.user.email}</h2> 
-        <button onClick={() => signOut()}>Sign Out</button>
-        </> 
-        : 
-        <>
-        <button className="google-login-btn" onClick={() => googleSignIn()}>Sign in with Google</button>
-        </> }
-    </div>
+        <div className={styles.bg}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                {session ? 
+                    <>
+                        <h2 className={styles.greeting}>Welcome {name.substr(0, name.indexOf(" "))}</h2>
+                        <button className={styles.googleLoginBtn} onClick={() => signOut()}>Sign Out</button>
+                    </> 
+                    : 
+                    <>
+                        <h2 className={styles.greeting}>Welcome</h2>
+                        <button className={styles.googleLoginBtn} onClick={() => googleSignIn()}>Sign in with Google</button>
+                    </> 
+                }
+            </div>
+        </div>
     </div>
   )
 }
