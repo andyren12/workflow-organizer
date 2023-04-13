@@ -1,0 +1,26 @@
+.navContainer {
+    position: fixed;
+    height: 5rem;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.navLinks {
+    display: flex;
+    justify-content: right;
+    font-size: 18px;
+    gap: 5vw;
+    margin-right: 5vw;
+
+    a {
+        margin-top: 2rem;
+        text-decoration: none;
+        color: white;
+    }
+
+    :hover {
+        margin-top: 1.5rem;
+        transition: .5s;
+    }
+}
