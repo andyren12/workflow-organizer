@@ -3,7 +3,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
-import { GoogleLogin } from './GoogleLogin'
+import { GoogleLogin } from './GoogleLogin';
 
 export default function Calendar() {
     const [start, setStart] = useState(new dayjs(Date()));
