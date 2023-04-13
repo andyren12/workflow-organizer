@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react'
 import styles from './Timer.module.scss'
 
 export default function Timer() {
-    const[seconds, setSeconds] = useState(0);
-    const[minutes, setMinutes] = useState(0);
-    const[hours, setHours] = useState(0);
-    const[started, setStarted] = useState(false);
-    const[status, setStatus] = useState("Start");
+    const [seconds, setSeconds] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [hours, setHours] = useState(0);
+    const [started, setStarted] = useState(false);
+    const [status, setStatus] = useState("Start");
+    const [hoverShort, setHoverShort] = useState(false);
+    const [hoverLong, setHoverLong] = useState(false);
+    const [short, setShort] = useState(false);
+    const [long, setLong] = useState(false);
 
     const setTimer = () => {
         let time = document.getElementById("timer").value;
@@ -36,6 +40,10 @@ export default function Timer() {
         setHours(0);
         setStarted(false);
         setStatus("Start");
+    }
+
+    const setZero = () => {
+        document.getElementById("timer").value = "";
     }
 
     useEffect(() => {
@@ -97,14 +105,77 @@ export default function Timer() {
         return /^\d*$/.test(value);
     }, "Must be an unsigned integer");
 
-    const setZero = () => {
-        document.getElementById("timer").value = "";
+    const handleMouseOverShort = () => setHoverShort(true);
+    const handleMouseOutShort = () => setHoverShort(false);
+    const handleMouseOverLong = () => setHoverLong(true);
+    const handleMouseOutLong = () => setHoverLong(false);
+
+    const setShortTimer = () => {
+        setShort(true);
+        setHoverShort(false);
+        setHours(0);
+        setMinutes(25);
+        setSeconds(0);
+    }
+
+    const setLongTimer = () => {
+        setLong(true);
+        setHoverLong(false);
+        setHours(1);
+        setMinutes(0);
+        setSeconds(0);
+    }
+
+    const goBack = () => {
+        setShort(false);
+        setLong(false);
+        resetTimer();
     }
 
   return (
     <div className={styles.main}>
+        <div style={{fontSize: '1.4rem'}}>
+            &nbsp;
+            {(short || long) && (
+                <button id={styles.backBtn} onClick={goBack}>back</button>
+            )}
+        </div>
+        <div className={styles.pomoBox}>
+            {!long && (
+                <div className={styles.pomo}>
+                <div className={styles.pomoDesc}>
+                    &nbsp;
+                    {hoverShort && (
+                        <span>25-5 min</span>
+                    )}
+                </div>
+                <button
+                    onMouseOver={handleMouseOverShort}
+                    onMouseOut={handleMouseOutShort}
+                    disabled={short}
+                    onClick={setShortTimer}
+                >Short Pomodoro</button>
+            </div>
+            )}
+            {!short && (
+                <div className={styles.pomo}>
+                <div className={styles.pomoDesc}>
+                    &nbsp;
+                    {hoverLong && (
+                        <span>60-15 min</span>
+                    )}
+                </div>
+                <button
+                    onMouseOver={handleMouseOverLong}
+                    onMouseOut={handleMouseOutLong}
+                    disabled={long}
+                    onClick={setLongTimer}
+                >Long Pomodoro</button>
+            </div>
+            )}
+        </div>
         <div className={styles.inputBox}>
-            <input id="timer" onClick={setZero} onInput={setTimer} maxlength="6" disabled={started} autoFocus />
+            <input id="timer" onClick={setZero} onInput={setTimer} maxlength="6" disabled={started || short || long} autoFocus />
         </div>
         <label for="timer" id={styles.timerLabel}>
             {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}

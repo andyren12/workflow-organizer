@@ -24,7 +24,7 @@
         border: none;
         border-radius: 5px;
 
-        &:hover {
+        &:hover:enabled {
             cursor: pointer;
             box-shadow: 0 -1px 0 rgba(0, 0, 0, .04), 0 2px 4px rgba(0, 0, 0, .25);
         }
@@ -40,7 +40,7 @@
     color: #BAB86C;
     font-size: 120px;
 
-   &:hover {
+    &:hover {
         cursor: pointer;
     }
 }
@@ -48,4 +48,31 @@
 .buttons {
     display: flex;
     align-items: center;
+}
+
+.pomoBox {
+    display: flex;
+    margin-bottom: 30px;
+    gap: 60px;
+}
+
+.pomo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pomoDesc {
+    position: relative;
+    bottom: 10px;
+    color: gray;
+}
+
+#backBtn{
+    position: relative;
+    right: 160px;
+    top: 55px;
+    font-size: 1rem;
+    width: 3em;
+    height: 1.4rem;
 }
