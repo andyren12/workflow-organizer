@@ -29,21 +29,19 @@ export default function Home() {
       }
 
   return (
-    <div>
-        <div className={styles.bg}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                {session ? 
-                    <>
-                        <h2 className={styles.greeting}>Welcome {name.substr(0, name.indexOf(" "))}</h2>
-                        <button className={styles.googleLoginBtn} onClick={() => signOut()}>Sign Out</button>
-                    </> 
-                    : 
-                    <>
-                        <h2 className={styles.greeting}>Welcome</h2>
-                        <button className={styles.googleLoginBtn} onClick={() => googleSignIn()}>Sign in with Google</button>
-                    </> 
-                }
-            </div>
+    <div className={styles.bg}>
+        <div className={styles.welcomeBox}>
+            {session ? 
+                <>
+                    <h2>Welcome {name.substr(0, name.indexOf(" "))}</h2>
+                    <button className={styles.googleLoginBtn} onClick={() => signOut()}>Sign Out</button>
+                </> 
+                : 
+                <>
+                    <h2 className={styles.greeting}>Welcome</h2>
+                    <button className={styles.googleLoginBtn} onClick={() => googleSignIn()}>Sign in with Google</button>
+                </> 
+            }
         </div>
     </div>
   )
