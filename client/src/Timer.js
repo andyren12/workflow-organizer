@@ -134,62 +134,64 @@ export default function Timer() {
 
   return (
     <div className={styles.main}>
-        <div style={{fontSize: '1.4rem'}}>
-            &nbsp;
-            {(short || long) && (
-                <button id={styles.backBtn} onClick={goBack}>back</button>
-            )}
-        </div>
-        <div className={styles.pomoBox}>
-            {!long && (
-                <div className={styles.pomo}>
-                <div className={styles.pomoDesc}>
-                    &nbsp;
-                    {hoverShort && (
-                        <span>25-5 min</span>
-                    )}
-                </div>
-                <button
-                    onMouseOver={handleMouseOverShort}
-                    onMouseOut={handleMouseOutShort}
-                    disabled={short}
-                    onClick={setShortTimer}
-                >Short Pomodoro</button>
+        <div className={styles.container}>
+            <div style={{fontSize: '1.4rem'}}>
+                &nbsp;
+                {(short || long) && (
+                    <button id={styles.backBtn} onClick={goBack}>back</button>
+                )}
             </div>
-            )}
-            {!short && (
-                <div className={styles.pomo}>
-                <div className={styles.pomoDesc}>
-                    &nbsp;
-                    {hoverLong && (
-                        <span>60-15 min</span>
-                    )}
+            <div className={styles.pomoBox}>
+                {!long && (
+                    <div className={styles.pomo}>
+                    <div className={styles.pomoDesc}>
+                        &nbsp;
+                        {hoverShort && (
+                            <span>25-5 min</span>
+                        )}
+                    </div>
+                    <button
+                        onMouseOver={handleMouseOverShort}
+                        onMouseOut={handleMouseOutShort}
+                        disabled={short}
+                        onClick={setShortTimer}
+                    >Short Pomodoro</button>
                 </div>
-                <button
-                    onMouseOver={handleMouseOverLong}
-                    onMouseOut={handleMouseOutLong}
-                    disabled={long}
-                    onClick={setLongTimer}
-                >Long Pomodoro</button>
+                )}
+                {!short && (
+                    <div className={styles.pomo}>
+                    <div className={styles.pomoDesc}>
+                        &nbsp;
+                        {hoverLong && (
+                            <span>60-15 min</span>
+                        )}
+                    </div>
+                    <button
+                        onMouseOver={handleMouseOverLong}
+                        onMouseOut={handleMouseOutLong}
+                        disabled={long}
+                        onClick={setLongTimer}
+                    >Long Pomodoro</button>
+                </div>
+                )}
             </div>
-            )}
-        </div>
-        <div className={styles.inputBox}>
-            <input id="timer" onClick={setZero} onInput={setTimer} maxlength="6" disabled={started || short || long} autoFocus />
-        </div>
-        <label for="timer" id={styles.timerLabel}>
-            {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}
-        </label>
-        <div className={styles.buttons}>
-        {(!started) 
-        ? 
-        <button type="submit" onClick={startTimer}>
-            {status} Timer
-        </button>
-        :
-        <button type="submit" onClick={stopTimer}>Stop Timer</button>
-        }
-        <button type="submit" onClick={resetTimer}>Reset Timer</button>
+            <div className={styles.inputBox}>
+                <input id="timer" onClick={setZero} onInput={setTimer} maxLength="6" disabled={started || short || long} autoFocus />
+            </div>
+            <label htmlFor="timer" id={styles.timerLabel}>
+                {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}
+            </label>
+            <div className={styles.buttons}>
+            {(!started) 
+            ? 
+            <button type="submit" onClick={startTimer}>
+                {status} Timer
+            </button>
+            :
+            <button type="submit" onClick={stopTimer}>Stop Timer</button>
+            }
+            <button type="submit" onClick={resetTimer}>Reset Timer</button>
+            </div>
         </div>
     </div>
   )
