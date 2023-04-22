@@ -1,9 +1,8 @@
 import { GoogleLogin } from './GoogleLogin'
-import { useState, useEffect } from 'react';
-import { Form, Button, Row, Col, Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
 import { v4 as uuidv4 } from 'uuid'
+import styles from "./Projects.module.scss"
 
 export default function Projects() {
     const { supabase, user } = GoogleLogin();
@@ -64,25 +63,25 @@ export default function Projects() {
     }, [user])
 
     return (
-        <div style={{margin: "300px"}}>
-            <Form.Group className="mb-3" style={{width: "220px"}}>
-                <Form.Control type="file" accept="image/png, image/jpg, video/mp4" onChange={(e) => uploadImage(e)}/>
-            </Form.Group>
-            <Row xs={1} md={3} className="g-4">
+        <div className={styles.main}>
+            <form style={{width: "220px"}}>
+                <input type="file" accept="image/png, image/jpg, video/mp4" onChange={(e) => uploadImage(e)}/>
+            </form>
+            <div>
                 {images.map((image) => {
                     return (
-                        <Col key={CDNURL + user.id + "/" + image.name}>
-                            <Card>
+                        <div>
+                            <div>
                                 <ReactPlayer url={CDNURL + user.id + "/" + image.name} playing={playing} />
-                                <Button onClick={() => { setPlaying(true) }}>Play</Button>
-                                <Card.Body>
-                                    <Button variant="danger" onClick={() => deleteImage(image.name)}>Delete</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                                <button onClick={() => { setPlaying(true) }}>Play</button>
+                                <div>
+                                    <button variant="danger" onClick={() => deleteImage(image.name)}>Delete</button>
+                                </div>
+                            </div>
+                        </div>
                     )
                 })}
-            </Row>
+            </div>
         </div>
     )
 }

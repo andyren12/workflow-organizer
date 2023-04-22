@@ -20,7 +20,7 @@
   color: white;
   font-size: 3rem;
   font-family: 'Comfortaa', cursive;
-  animation: 1s ease-in 1 fadeLeftToRight;
+  animation: 1s ease-in 1 easeIn;
 }
 
 .googleLoginBtn {
@@ -58,7 +58,7 @@
   }
 }
 
-@keyframes fadeLeftToRight {
+@keyframes easeIn {
   0% {
       opacity: 0;
   }
