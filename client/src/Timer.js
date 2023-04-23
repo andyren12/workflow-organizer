@@ -5,41 +5,41 @@ export default function Timer() {
     const [seconds, setSeconds] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [hours, setHours] = useState(0);
-    const [started, setStarted] = useState(false);
+    const [isRunning, setIsRunning] = useState(false);
     const [status, setStatus] = useState("Start");
-    const [hoverShort, setHoverShort] = useState(false);
-    const [hoverLong, setHoverLong] = useState(false);
-    const [short, setShort] = useState(false);
-    const [long, setLong] = useState(false);
+    const [pomodoroState, setPomodoroState] = useState(null);
 
     const setTimer = () => {
         let time = document.getElementById("timer").value;
-        if (time === 0) {
-            setSeconds(0);
-        }
         setSeconds(time % 100);
         setMinutes(Math.floor(time / 100 % 100))
         setHours(Math.floor(time / 10000))
         setStatus("Start");
     }
-
     const startTimer = () => {
         if (seconds > 0 || minutes > 0 || hours > 0) {
-            setStarted(true);
+            setIsRunning(true);
         }
     }
 
     const stopTimer = () => {
-        setStarted(false);
+        setIsRunning(false);
         setStatus("Resume");
     }
 
     const resetTimer = () => {
+        if(pomodoroState === 'short') {
+            setMinutes(25);
+        } else if (pomodoroState === 'long') {
+            setHours(1);
+        } else {
+            setMinutes(0);
+            setHours(0);
+        }
         setSeconds(0);
-        setMinutes(0);
-        setHours(0);
-        setStarted(false);
+        setIsRunning(false);
         setStatus("Start");
+        setPomodoroState(null);
     }
 
     const setZero = () => {
@@ -47,14 +47,32 @@ export default function Timer() {
     }
 
     useEffect(() => {
-        if (started) {
+        if (isRunning) {
             const timer = setInterval(() => {
                 setSeconds(seconds - 1);
                 if (seconds === 0) {
                     if (minutes === 0) {
                         if (hours === 0) {
-                            setStarted(false);
+                            setIsRunning(false);
                             setStatus("Start");
+                            setSeconds(0);
+                            if (pomodoroState === 'short') {
+                                setPomodoroState('shortBreak');
+                                setMinutes(5);
+                                alert("Start 5 min break now")
+                              } else if (pomodoroState === 'shortBreak') {
+                                setPomodoroState(null);
+                                alert("Break over")
+                              } else if (pomodoroState === 'long') {
+                                setPomodoroState('longBreak');
+                                setMinutes(15);
+                                alert("Start 15 min break now")
+                              } else if (pomodoroState === 'longBreak') {
+                                setPomodoroState(null);
+                                alert("Break over")
+                              } else {
+                                alert("Timer over");
+                              }
                         } else {
                             setHours(hours - 1);
                             setMinutes(59);
@@ -69,7 +87,31 @@ export default function Timer() {
             }, 1000)
             return () => clearInterval(timer);
         }
-    })
+    }, [seconds, minutes, hours, pomodoroState, isRunning])
+
+    const setShortTimer = () => {
+        setPomodoroState('short');
+        setStatus("Start");
+        setHours(0);
+        setMinutes(0);
+        setSeconds(10);
+    }
+
+    const setLongTimer = () => {
+        setPomodoroState('long');
+        setStatus("Start");
+        setHours(1);
+        setMinutes(0);
+        setSeconds(0);
+    }
+
+    const goBack = () => {
+        setPomodoroState(null);
+        setStatus("Start");
+        setHours(0);
+        setMinutes(0);
+        setSeconds(0);
+    }
 
     function setInputFilter(textbox, inputFilter, errMsg) {
         [ "input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout" ].forEach(function(event) {
@@ -105,83 +147,40 @@ export default function Timer() {
         return /^\d*$/.test(value);
     }, "Must be an unsigned integer");
 
-    const handleMouseOverShort = () => setHoverShort(true);
-    const handleMouseOutShort = () => setHoverShort(false);
-    const handleMouseOverLong = () => setHoverLong(true);
-    const handleMouseOutLong = () => setHoverLong(false);
-
-    const setShortTimer = () => {
-        setShort(true);
-        setHoverShort(false);
-        setHours(0);
-        setMinutes(25);
-        setSeconds(0);
-    }
-
-    const setLongTimer = () => {
-        setLong(true);
-        setHoverLong(false);
-        setHours(1);
-        setMinutes(0);
-        setSeconds(0);
-    }
-
-    const goBack = () => {
-        setShort(false);
-        setLong(false);
-        resetTimer();
-    }
-
   return (
     <div className={styles.main}>
         <div style={{fontSize: '1.4rem'}}>
             &nbsp;
-            {(short || long) && (
+            {pomodoroState !== null && (
                 <button id={styles.backBtn} onClick={goBack}>back</button>
             )}
         </div>
         <div className={styles.pomoBox}>
-            {!long && (
+            {pomodoroState !== 'long' && pomodoroState !== 'longBreak' && (
                 <div className={styles.pomo}>
-                <div className={styles.pomoDesc}>
-                    &nbsp;
-                    {hoverShort && (
-                        <span>25-5 min</span>
-                    )}
-                </div>
                 <button
-                    onMouseOver={handleMouseOverShort}
-                    onMouseOut={handleMouseOutShort}
-                    disabled={short}
+                    disabled={pomodoroState === 'short'}
                     onClick={setShortTimer}
                 >Short Pomodoro</button>
             </div>
             )}
-            {!short && (
+            {pomodoroState !== 'short' && pomodoroState !== 'shortBreak' && (
                 <div className={styles.pomo}>
-                <div className={styles.pomoDesc}>
-                    &nbsp;
-                    {hoverLong && (
-                        <span>60-15 min</span>
-                    )}
-                </div>
                 <button
-                    onMouseOver={handleMouseOverLong}
-                    onMouseOut={handleMouseOutLong}
-                    disabled={long}
+                    disabled={pomodoroState === 'long'}
                     onClick={setLongTimer}
                 >Long Pomodoro</button>
             </div>
             )}
         </div>
         <div className={styles.inputBox}>
-            <input id="timer" onClick={setZero} onInput={setTimer} maxlength="6" disabled={started || short || long} autoFocus />
+            <input id="timer" onClick={setZero} onInput={setTimer} maxLength="6" disabled={isRunning || pomodoroState !== null} autoComplete="off" autoFocus />
         </div>
         <label for="timer" id={styles.timerLabel}>
             {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}
         </label>
         <div className={styles.buttons}>
-        {(!started) 
+        {!isRunning
         ? 
         <button type="submit" onClick={startTimer}>
             {status} Timer
