@@ -46,7 +46,7 @@
     }
 }
 
-.images {
+.videos {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -58,7 +58,23 @@
     overflow-y: scroll;
 }
 
-.imageCard {
+.vidCard {
     display: flex;
-    flex-direction: column;
+}
+
+#delButton {
+    position: relative;
+    background-color: transparent;
+    font-size: 1.5rem;
+    bottom: 50%;
+    right: 5%;
+    border: none;
+    color: black;
+    cursor: pointer;
+}
+
+#delButton:before {
+    position: absolute;
+    content: "\02e3";
+    font-size: 30px; 
 }
