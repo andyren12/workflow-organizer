@@ -18,14 +18,14 @@ export default function Projects() {
             .list(user?.id + "/", {
                 limit: 100,
                 offset: 0,
-                sortBy: { column: "name", order: "asc" }
+                sortBy: { column: "created_at", order: "asc" }
             });
         
-            if(data !== null) {
-                setImages(data);
-            } else {
-                console.log(error);
-            }
+        if(data !== null) {
+            setImages(data);
+        } else {
+            console.log(error);
+        }
     }
 
     async function uploadImage(e) {
@@ -64,23 +64,25 @@ export default function Projects() {
 
     return (
         <div className={styles.main}>
-            <form style={{width: "220px"}}>
-                <input type="file" accept="image/png, image/jpg, video/mp4" onChange={(e) => uploadImage(e)}/>
-            </form>
-            <div>
-                {images.map((image) => {
-                    return (
-                        <div>
-                            <div>
-                                <ReactPlayer url={CDNURL + user.id + "/" + image.name} playing={playing} />
+            <div className={styles.head}>
+                <input id="file-upload" type="file" accept="video/mp4" onChange={(e) => uploadImage(e)}/>
+                <label htmlFor="file-upload">
+                    <div className={styles.uploadButton}>
+                        Upload
+                    </div>
+                </label>
+                <h2 className={styles.headText}>Your Media <hr /></h2>
+            </div>
+            <div className={styles.images}>
+                    {images.map((image) => {
+                        return (
+                            <div key={image.name} className={styles.imageCard}>
+                                <ReactPlayer url={CDNURL + user.id + "/" + image.name} playing={playing} width='360px' height='270px'/>
                                 <button onClick={() => { setPlaying(true) }}>Play</button>
-                                <div>
-                                    <button variant="danger" onClick={() => deleteImage(image.name)}>Delete</button>
-                                </div>
+                                <button onClick={() => deleteImage(image.name)}>Delete</button>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
             </div>
         </div>
     )
