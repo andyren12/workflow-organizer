@@ -31,6 +31,7 @@
     top: 55px;
     height: 160px;
     width: 100vw;
+    animation: 1s easeIn;
 }
 
 .headText {
@@ -56,6 +57,7 @@
     width: 100vw;
     bottom: 0;
     overflow-y: scroll;
+    animation: 1s easeIn;
 }
 
 .vidCard {
@@ -77,4 +79,13 @@
     position: absolute;
     content: "\02e3";
     font-size: 30px; 
+}
+
+@keyframes easeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

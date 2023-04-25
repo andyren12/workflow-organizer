@@ -73,11 +73,11 @@ export default function Projects() {
                 <h2 className={styles.headText}>Your Media <hr /></h2>
             </div>
             <div className={styles.videos}>
-                {videos.map((video, index) => {
+                {videos.map((video) => {
                     return (
                         <div className={styles.vidCard} key={video.name}>
-                                <ReactPlayer url={CDNURL + user.id + "/" + video.name} controls='true' width='360px' height='270px'/>
-                                <button id={styles.delButton} onClick={() => deleteVideo(video.name)}></button>
+                            <ReactPlayer url={CDNURL + user.id + "/" + video.name} controls='true' width='360px' height='270px'/>
+                            <button id={styles.delButton} onClick={() => deleteVideo(video.name)}></button>
                         </div>
                     )
                 })}
