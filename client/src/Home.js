@@ -2,12 +2,7 @@ import { GoogleLogin } from './GoogleLogin'
 import styles from './Home.module.scss';
 
 export default function Home() {
-  const { session, supabase, isLoading } = GoogleLogin();
-
-  if (session) {
-      var name = session.user.user_metadata.name;
-      console.log(session.user);
-  }
+  const { session, supabase, isLoading, user } = GoogleLogin();
 
   if(isLoading) {
       return <></>
@@ -35,7 +30,7 @@ export default function Home() {
         <div className={styles.welcomeBox}>
             {session ? 
                 <>
-                    <h2>Welcome {name.substr(0, name.indexOf(" "))}</h2>
+                    <h2>Welcome {user.user_metadata.name.substr(0, user.user_metadata.name.indexOf(" "))}</h2>
                     <button className={styles.googleLoginBtn} onClick={() => signOut()}>Sign Out</button>
                 </> 
                 : 
