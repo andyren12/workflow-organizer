@@ -1,5 +1,6 @@
 import Navbar from './Navbar'
 import Home from './Home'
+import Tasks from './Tasks'
 import Calendar from './Calendar'
 import Timer from './Timer'
 import Projects from './Projects'
@@ -12,6 +13,7 @@ function App() {
       <Routes >
         <Route path='/' element={<Home />} />
         <Route path='/calendar' element={<Calendar />} />
+        <Route path='/tasks' element={<Tasks />} />
         <Route path='/timer' element={<Timer />} />
         <Route path='/projects' element={<Projects />} />
       </Routes>
