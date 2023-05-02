@@ -176,7 +176,7 @@ export default function Timer() {
         <div className={styles.inputBox}>
             <input id="timer" onClick={setZero} onInput={setTimer} maxLength="6" disabled={isRunning || pomodoroState !== null} autoComplete="off" autoFocus />
         </div>
-        <label for="timer" id={styles.timerLabel}>
+        <label htmlFor="timer" id={styles.timerLabel}>
             {hours < 10 && 0}{hours}:{minutes < 10 && 0}{minutes}:{seconds < 10 && 0}{seconds}
         </label>
         <div className={styles.buttons}>
