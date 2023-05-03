@@ -93,8 +93,8 @@ export default function Timer() {
         setPomodoroState('short');
         setStatus("Start");
         setHours(0);
-        setMinutes(0);
-        setSeconds(10);
+        setMinutes(25);
+        setSeconds(0);
     }
 
     const setLongTimer = () => {
