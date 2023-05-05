@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+
+    input {
+        height: 1.5rem;
+        border-radius: 5px;
+    }
+}

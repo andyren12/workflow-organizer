@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a7c88ad0.css",
+    "main.js": "/static/js/main.d3114228.js",
+    "static/media/bg-aurora.jpg": "/static/media/bg-aurora.3977c3cb6af9300ee289.jpg",
+    "index.html": "/index.html",
+    "main.a7c88ad0.css.map": "/static/css/main.a7c88ad0.css.map",
+    "main.d3114228.js.map": "/static/js/main.d3114228.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a7c88ad0.css",
+    "static/js/main.d3114228.js"
+  ]
+}
