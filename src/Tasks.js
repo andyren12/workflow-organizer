@@ -1,37 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { GoogleLogin } from './GoogleLogin'
+import CalendarPopup from './CalendarPopup'
 import Popup from 'reactjs-popup'
-import Calendar from './Calendar'
 import styles from './Tasks.module.scss'
-
-
-function CalendarPopup({ task, onClose, buttonRef }) {
-  const popupRef = useRef(null);
-
-  useEffect(() => {
-    function handleResize() {
-      if (buttonRef.current && popupRef.current) {
-        const buttonRect = buttonRef.current.getBoundingClientRect();
-        const popupRect = popupRef.current.getBoundingClientRect();
-        const topPosition = buttonRect.top - popupRect.height + 50;
-        const leftPosition = buttonRect.left + (buttonRect.width / 2) - popupRect.width;
-        
-        popupRef.current.style.top = `${topPosition}px`;
-        popupRef.current.style.left = `${leftPosition}px`;
-      }
-    }
-    handleResize()
-
-    window.addEventListener('resize', handleResize)
-  }, [buttonRef]);
-
-  return (
-    <div className={styles.calendarPopup} ref={popupRef}>
-      <h2>Add to Calendar: {task.name}</h2>
-      <Calendar />
-    </div>
-  );
-}
 
 
 export default function Tasks() {
