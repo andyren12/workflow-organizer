@@ -2,9 +2,24 @@
     display: flex;
     gap: .5rem;
     flex-direction: column;
+}
 
-    input {
-        height: 1.5rem;
-        border-radius: 5px;
+.eventInput {
+    height: 2rem;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 1rem;
+}
+
+.createButton {
+    align-self: center;
+    font-size: 1rem;
+    margin-top: 20px;
+    padding: 7px 15px;
+    background-color: #4a4a4a;
+    color: white;
+
+    &:hover {
+        background-color: #3a3a3a;
     }
 }
