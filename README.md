@@ -1,12 +1,15 @@
 # workflow-organizer
 
-Use React and Supabase to create productivity app that organizes various aspects
-of work.
+Personalized productivity site using React and Supabase to help me and potentially users stay organized and focused.
 
-### Calendar
+### Home
+Uses Google login to keep track of users and differentiate between saved data.
 
-Connects to user's Google Calendar to retrieve upcoming events and insert new ones.
+### To-Do List
+Users can add, delete, mark tasks as completed, and upload tasks to their Google Calendar. Each user's tasks are stored using Supabase's database.
 
-### Timer
+### Pomodoro Timer
+Customizable pomodoro timer allows users to set their own timers or use preset pomodoros that automatically switch between either 25-minute work to 5-minute break or 1-hour work to 15-minute break timers. 
 
-Preset and adjustable pomodoro timers to facilitate studying.
+### Projects
+Display's user's media projects using Supabase's file storage. Designed for me to have a place to keep my animations.
