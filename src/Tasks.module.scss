@@ -5,7 +5,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 100px;
+  padding: 100px 120px;
 }
 
 .container {
@@ -21,7 +21,8 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
-    margin-right: 10px;
+    margin-right: .8rem;
+    margin-bottom: 1.5rem;
     padding: 5px;
     width: 70%;
   }
